@@ -58,6 +58,7 @@ while [ "$done" -eq 0 ] ; do
 	sleep 1
 	if grep -q "ENTER" intrace_out; then
 		echo InTrace is ready to begin
+		> "$FILE2"
 		# yes '' > "$PIPE2"
 		echo -e "\n" > "$PIPE2"
 		done=1
@@ -68,13 +69,13 @@ done
 done2=0
 while [ "$done2" -eq 0 ] ; do
 	echo waiting to end InTrace...
-	# if tac "$FILE2" | grep -Fq "[TCP]" ; then
-	if grep -Fq "[TCP]" "$FILE2" ; then
+	if tac "$FILE2" | grep -Fq "[TCP]" ; then
+	# if grep -Fq "[TCP]" "$FILE2" ; then
 		echo InTrace results complete
 		sudo pkill intrace
 		done2=1
 	fi
-sleep 0.5
+	sleep 0.5
 done
 
 # now to parse nc_out and intrace_out and send results back through the nc connection
