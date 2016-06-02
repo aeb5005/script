@@ -43,7 +43,7 @@ if [ ! -e "$PIPE2" ] ; then
 fi
 
 # is sudo needed? appears so, not sure why 
-# if [ ! pgre (FINISH THIS)
+# if [ ! pgrep intrace ] ; then (FINISH THIS)
 sudo ./intrace -h 76.99.28.199 -p 44544 0<$PIPE2 1>$FILE2 &
 
 nc -k -l 44544 0<$PIPE 1>$FILE &
@@ -58,8 +58,23 @@ while [ "$done" -eq 0 ] ; do
 	sleep 1
 	if grep -q "ENTER" intrace_out; then
 		echo InTrace is ready to begin
-		yes '' > "$PIPE2"
+		# yes '' > "$PIPE2"
+		echo -e "\n" > "$PIPE2"
 		done=1
 	fi
 done
+# might as well wait a few seconds, intrace won't finish that fast
+# sleep 5
+done2=0
+while [ "$done2" -eq 0 ] ; do
+	echo waiting to end InTrace...
+	# if tac "$FILE2" | grep -Fq "[TCP]" ; then
+	if grep -Fq "[TCP]" "$FILE2" ; then
+		echo InTrace results complete
+		sudo pkill intrace
+		done2=1
+	fi
+sleep 0.5
+done
 
+# now to parse nc_out and intrace_out and send results back through the nc connection
