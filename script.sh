@@ -79,3 +79,6 @@ while [ "$done2" -eq 0 ] ; do
 done
 
 # now to parse nc_out and intrace_out and send results back through the nc connection
+
+# could try exit 0 which indicates success
+exit 
