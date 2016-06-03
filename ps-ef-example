@@ -1,0 +1,2 @@
+ec2-user 19904     1  0 18:43 pts/0    00:00:00 nc -k -l 44544
+ec2-user 20093 19872  0 18:51 pts/0    00:00:00 grep --color=auto nc -k -l 44544
