@@ -49,7 +49,6 @@ nc -k -l 44544 0<$PIPE 1>$FILE &
 
 x=0
 while [ "$x" -eq 0 ] ; do
-	echo waiting to establish TCP connection...
 	if [ -s "$FILE" ]; 
 	then
 		echo TCP connection established
