@@ -44,9 +44,29 @@ fi
 
 # is sudo needed? appears so, not sure why 
 # if [ ! pgrep intrace ] ; then (FINISH THIS)
-sudo ./intrace -h 76.99.28.199 -p 44544 0<$PIPE2 1>$FILE2 &
 
 nc -k -l 44544 0<$PIPE 1>$FILE &
+
+x=0
+while [ "$x" -eq 0 ] ; do
+	echo waiting to establish TCP connection...
+	if [ -s "$FILE" ]; 
+	then
+		echo TCP connection established
+		x=1
+	else
+		echo waiting to establish TCP connection...
+		sleep 1
+	fi
+done
+
+NCIP="$(sudo netstat -anpt|awk 'BEGIN {FS="[ :]+"};/ESTABLISHED/ && /nc/{print $6}')"
+echo NCIP is $NCIP
+
+NCPORT="$(sudo netstat -anpt|awk 'BEGIN {FS="[ :]+"};/ESTABLISHED/ && /nc/{print $7}')"
+echo NCPORT is $NCPORT
+
+sudo ./intrace -h $NCIP -p $NCPORT 0<$PIPE2 1>$FILE2 &
 
 # if enter, it's go time
 # -q or --quiet exits if match is found with 0 status
@@ -54,7 +74,7 @@ nc -k -l 44544 0<$PIPE 1>$FILE &
 # or use yes command
 done=0
 while [ "$done" -eq 0 ] ; do
-	echo waiting...
+	echo waiting to packet sniff for inTrace...
 	sleep 1
 	if grep -q "ENTER" intrace_out; then
 		echo InTrace is ready to begin
