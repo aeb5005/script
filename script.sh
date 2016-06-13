@@ -42,9 +42,9 @@ if [ ! -e "$PIPE2" ] ; then
 	exec 6<>"$PIPE2"
 fi
 
-# is sudo needed? appears so, not sure why 
-# if [ ! pgrep intrace ] ; then (FINISH THIS)
+# TODO: Check for nc and intrace running and if so, handle that logic
 
+# starting netcat, runs continuously in background
 nc -k -l 44544 0<$PIPE 1>$FILE &
 
 x=0
@@ -59,6 +59,7 @@ while [ "$x" -eq 0 ] ; do
 	fi
 done
 
+# getting the netcat foreign IP and port
 NCIP="$(sudo netstat -anpt|awk 'BEGIN {FS="[ :]+"};/ESTABLISHED/ && /nc/{print $6}')"
 echo NCIP is $NCIP
 
