@@ -78,7 +78,7 @@ while [ "$done" -eq 0 ] ; do
 	sleep 1
 	if grep -q "ENTER" intrace_out; then
 		echo InTrace is ready to begin
-		# pretty sure this line below isn't needed
+		# does the below line trim off everything before ENTER?
 		# > "$FILE2"
 		# yes '' > "$PIPE2"
 		echo -e "\n" > "$PIPE2"
