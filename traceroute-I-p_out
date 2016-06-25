@@ -15,8 +15,7 @@ traceroute to 76.99.28.199 (76.99.28.199), 30 hops max, 60 byte packets
 14  te-6-1-acr01.fairmountave.pa.panjde.comcast.net (68.85.195.22)  8.862 ms  8.773 ms  8.860 ms
 15  c-76-99-28-199.hsd1.pa.comcast.net (76.99.28.199)  26.273 ms  23.436 ms  17.668 ms
 
-# I wouldn't have expected this to reach the client. 
+# I wouldn't have expected this to reach the client, and it didn't. Stopped at my NAT. 0
 # "For ICMP tracing, specifies the initial icmp sequence value (incremented by each probe too)."
 # so it would be incremented, and thus the wrong port when it reaches the client. 
-# I wonder if I did this, counted the number of hops, and then factored this into the new port number (port # - hops)
-# if it would then penetrate the NAT
+# I'm sure you need more than a matching port to penetrate the NAT. 
