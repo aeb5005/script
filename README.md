@@ -7,5 +7,4 @@
 * Client information is parsed from netstat results using grep and awk.
 * inTrace packet sniffs the active TCP NC connection to get seq and ack values. 
 * inTrace then runs a TCP traceroute back to client.
-* inTrace *should* bypass firewalls and report existence of NAT if they exist between server and client
-* But this is dependent on the network. 
+* inTrace *should* bypass firewalls and report existence of NAT if they exist between server and client, but this is dependent on the network. 
